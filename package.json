@@ -1,0 +1,10 @@
+{
+  "name": "chat-solution",
+  "version": "0.0.1",
+  "description": "Microservice solution offering a chat application, developed with NodeJS, MongoDB, Redis, React.",
+  "author": "Nicolas Fernandes <nicolaspfernandes@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^5.1.4"
+  }
+}
