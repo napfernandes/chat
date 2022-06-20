@@ -10,7 +10,7 @@
   "author": "Nicolas Fernandes",
   "homepage": "https://github.com/napfernandes/chat#readme",
   "license": "ISC",
-  "main": "lib/user-service.js",
+  "main": "src/main.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/napfernandes/chat.git"
@@ -34,7 +34,9 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.1.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/mongoose": "^9.1.1",
     "@nestjs/platform-express": "^8.0.0",
+    "mongodb": "^4.7.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
