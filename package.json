@@ -8,6 +8,7 @@
     "lerna": "^5.1.4"
   },
   "scripts": {
+    "test:unit": "lerna run test:unit --scope",
     "build": "lerna run build --scope",
     "start": "docker-compose up -d && lerna run start:dev --stream --scope"
   }
