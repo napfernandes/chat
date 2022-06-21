@@ -3,8 +3,8 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UserOutput } from './models/user.output';
 import { CreateUserInput } from './models/create-user.input';
-import { DeleteUserOutput } from './models/delete-user.output';
 import { DeleteUserInput } from './models/delete-user.input';
+import { DeleteUserOutput } from './models/delete-user.output';
 
 @Resolver(() => UserOutput)
 export class UserResolver {

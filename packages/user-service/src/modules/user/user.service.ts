@@ -10,17 +10,21 @@ import { DeleteUserInput } from './models/delete-user.input';
 import { DeleteUserOutput } from './models/delete-user.output';
 import { UserNotFoundError } from './errors/user-not-found.error';
 import { CryptoService } from '../../common/services/crypto.service';
+import CreateUserValidator from './validators/create-user.validator';
+import { ValidatorService } from '../../common/services/validator.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly cryptoService: CryptoService,
+    private readonly validatorService: ValidatorService,
     @InjectModel(User.name) private readonly UserModel: Model<User>,
   ) {}
 
   async createUser(createUserInput: CreateUserInput): Promise<UserOutput> {
-    const userToCreate = new this.UserModel({ ...createUserInput });
+    await this.validatorService.validate(CreateUserValidator, createUserInput);
 
+    const userToCreate = new this.UserModel({ ...createUserInput });
     const saltForPassword = this.cryptoService.createRandomString();
 
     userToCreate.salt = saltForPassword;
