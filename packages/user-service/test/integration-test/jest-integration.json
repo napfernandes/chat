@@ -14,5 +14,6 @@
   },
   "setupFilesAfterEnv": [
     "./helpers/bootstrap-integration-tests.ts"
-  ]
+  ],
+  "collectCoverage": true
 }
