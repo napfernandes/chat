@@ -13,6 +13,6 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "setupFilesAfterEnv": [
-    "./helpers/bootstrap-tests.ts"
+    "./helpers/bootstrap-integration-tests.ts"
   ]
 }

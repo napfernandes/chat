@@ -10,6 +10,7 @@ import { CryptoService } from '../../../../src/common/services/crypto.service';
 import { ValidatorService } from '../../../../src/common/services/validator.service';
 import { UserRepository } from '../../../../src/modules/user/user.repository';
 import { LoginCredentialsInput } from '../../../../src/modules/user/models/login-credentials.input';
+import { ConfigModule } from '@nestjs/config';
 
 describe('Login User', () => {
   let userService: UserService;
@@ -17,6 +18,7 @@ describe('Login User', () => {
   beforeAll(async () => {
     const testingModule: TestingModule = await Test.createTestingModule({
       imports: [
+        ConfigModule.forRoot({}),
         global.MongooseTestModule,
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
       ],
@@ -78,12 +80,12 @@ describe('Login User', () => {
     });
 
     it('should be able to log in successfully', async () => {
-      const userOutput = await userService.createUser(createUserInput());
-      const credentials: LoginCredentialsInput = {
+      const userInput = createUserInput();
+      const userOutput = await userService.createUser(userInput);
+      const loginOutput = await userService.loginByCredentials({
         email: userOutput.email,
-        password: userOutput.password,
-      };
-      const loginOutput = await userService.loginByCredentials(credentials);
+        password: userInput.password,
+      });
 
       expect(loginOutput.token).not.toBeNull;
     });

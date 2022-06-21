@@ -59,6 +59,7 @@ export class UserService {
     }
 
     const hashedPassword = this.cryptoService.hashString(credentials.password, userByEmail.salt);
+
     if (userByEmail.password !== hashedPassword) {
       throw new InvalidCredentialsError();
     }
