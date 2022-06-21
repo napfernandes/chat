@@ -61,6 +61,18 @@ describe('Create User', () => {
   });
 
   describe('when all inputs are correct', () => {
+    describe('when the user already exists', () => {
+      it('should throw an error', async () => {
+        const userInput = createUserInput();
+
+        await userService.createUser(userInput);
+        await expect(userService.createUser(userInput)).rejects.toMatchObject({
+          status: HttpStatus.BAD_REQUEST,
+          message: `User ${userInput.email} already exists.`,
+        });
+      });
+    });
+
     it('should create an user successfully.', async () => {
       const hashStringSpy = jest.spyOn(cryptoService, 'hashString');
       const createRandomStringSpy = jest.spyOn(cryptoService, 'createRandomString');

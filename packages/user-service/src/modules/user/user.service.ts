@@ -12,6 +12,7 @@ import { UserNotFoundError } from './errors/user-not-found.error';
 import { CryptoService } from '../../common/services/crypto.service';
 import CreateUserValidator from './validators/create-user.validator';
 import { ValidatorService } from '../../common/services/validator.service';
+import { UserAlreadyExistsError } from './errors/user-already-exists.error';
 
 @Injectable()
 export class UserService {
@@ -23,6 +24,11 @@ export class UserService {
 
   async createUser(createUserInput: CreateUserInput): Promise<UserOutput> {
     await this.validatorService.validate(CreateUserValidator, createUserInput);
+    const existingUser = await this.getUserByEmail(createUserInput.email);
+
+    if (existingUser) {
+      throw new UserAlreadyExistsError(createUserInput.email);
+    }
 
     const userToCreate = new this.UserModel({ ...createUserInput });
     const saltForPassword = this.cryptoService.createRandomString();
@@ -33,6 +39,14 @@ export class UserService {
     await userToCreate.save();
 
     return UserOutput.from(userToCreate.toJSON());
+  }
+
+  async getUserByEmail(email: string): Promise<UserOutput | null> {
+    const userFound = await this.UserModel.findOne({ email });
+
+    if (!userFound) return null;
+
+    return UserOutput.from(userFound.toJSON());
   }
 
   async findUsers(): Promise<UserOutput[]> {
