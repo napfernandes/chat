@@ -13,8 +13,4 @@ export class DeleteUserOutput implements DeleteUserOutputAttributes {
   static from(attributes: Partial<DeleteUserOutputAttributes>): DeleteUserOutput {
     return plainToInstance(DeleteUserOutput, attributes);
   }
-
-  static fromArray(attributesArray: DeleteUserOutputAttributes[]): DeleteUserOutput[] {
-    return attributesArray.map(DeleteUserOutput.from);
-  }
 }

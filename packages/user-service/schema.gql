@@ -15,6 +15,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type LoginOutput {
+  token: String!
+}
+
 type DeleteUserOutput {
   deleted: Boolean!
 }
@@ -26,6 +30,7 @@ type Query {
 type Mutation {
   createUser(input: CreateUserInput!): UserOutput!
   deleteUser(input: DeleteUserInput!): DeleteUserOutput!
+  login(input: LoginCredentialsInput!): LoginOutput!
 }
 
 input CreateUserInput {
@@ -35,4 +40,9 @@ input CreateUserInput {
 
 input DeleteUserInput {
   idOrEmail: String!
+}
+
+input LoginCredentialsInput {
+  email: String!
+  password: String!
 }

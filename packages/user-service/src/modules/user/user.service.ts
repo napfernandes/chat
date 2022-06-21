@@ -5,19 +5,27 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { User } from './user.schema';
 import { UserOutput } from './models/user.output';
+import { UserRepository } from './user.repository';
+import { LoginOutput } from './models/login.output';
 import { CreateUserInput } from './models/create-user.input';
 import { DeleteUserInput } from './models/delete-user.input';
 import { DeleteUserOutput } from './models/delete-user.output';
 import { UserNotFoundError } from './errors/user-not-found.error';
+import { TokenService } from '../../common/services/token.service';
 import { CryptoService } from '../../common/services/crypto.service';
 import CreateUserValidator from './validators/create-user.validator';
+import { LoginCredentialsInput } from './models/login-credentials.input';
 import { ValidatorService } from '../../common/services/validator.service';
 import { UserAlreadyExistsError } from './errors/user-already-exists.error';
+import { InvalidCredentialsError } from './errors/invalid-credentials.error';
+import loginByCredentialsValidator from './validators/login-by-credentials.validator';
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly tokenService: TokenService,
     private readonly cryptoService: CryptoService,
+    private readonly userRepository: UserRepository,
     private readonly validatorService: ValidatorService,
     @InjectModel(User.name) private readonly UserModel: Model<User>,
   ) {}
@@ -41,12 +49,32 @@ export class UserService {
     return UserOutput.from(userToCreate.toJSON());
   }
 
+  async loginByCredentials(credentials: LoginCredentialsInput): Promise<LoginOutput> {
+    await this.validatorService.validate(loginByCredentialsValidator, credentials);
+
+    const userByEmail = await this.userRepository.getUserByEmail(credentials.email);
+
+    if (!userByEmail) {
+      throw new InvalidCredentialsError();
+    }
+
+    const hashedPassword = this.cryptoService.hashString(credentials.password, userByEmail.salt);
+    if (userByEmail.password !== hashedPassword) {
+      throw new InvalidCredentialsError();
+    }
+
+    const loginTokenInput = { email: userByEmail.email, userId: userByEmail.id };
+    const loginToken = this.tokenService.generateLoginToken(loginTokenInput);
+
+    return LoginOutput.from({ token: loginToken });
+  }
+
   async getUserByEmail(email: string): Promise<UserOutput | null> {
-    const userFound = await this.UserModel.findOne({ email });
+    const userFound = await this.userRepository.getUserByEmail(email);
 
     if (!userFound) return null;
 
-    return UserOutput.from(userFound.toJSON());
+    return UserOutput.from(userFound);
   }
 
   async findUsers(): Promise<UserOutput[]> {
