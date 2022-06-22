@@ -6,6 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(process.env.SERVER_PORT);
 
-  console.log(`App started at http://localhost:${process.env.SERVER_PORT}`);
+  const appUrl = await app.getUrl();
+
+  console.log(`App started at ${appUrl}.`);
 }
 bootstrap();
