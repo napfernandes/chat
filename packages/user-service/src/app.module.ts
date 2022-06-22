@@ -1,14 +1,13 @@
 import { join } from 'path';
+import { Connection } from 'mongoose';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { MongooseModule, InjectConnection } from '@nestjs/mongoose';
 
 import { UserModule } from './modules/user/user.module';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
-import { CustomMongoDBLogger } from './common/mongoose/custom-mongodb-logger';
+import { CustomMongoDBLogger } from './common/custom';
 
 @Module({
   imports: [

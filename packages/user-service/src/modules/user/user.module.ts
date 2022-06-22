@@ -7,7 +7,7 @@ import { User, UserSchema } from './user.schema';
 import { UserRepository } from './user.repository';
 import { TokenService } from 'src/common/services/token.service';
 import { CryptoService } from 'src/common/services/crypto.service';
-import { ValidatorService } from 'src/common/services/validator.service';
+import { ValidatorService } from '../../common/services/validator.service';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],

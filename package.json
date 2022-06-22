@@ -11,6 +11,7 @@
     "start:dev": "docker-compose up -d && lerna run start:dev --stream --scope",
     "test:integration": "lerna run test:integration --stream --scope",
     "test:coverage": "lerna run test:coverage --stream --scope",
-    "build": "lerna run build --stream --scope"
+    "build": "lerna run build --stream --scope",
+    "build:all": "lerna run build --stream"
   }
 }
