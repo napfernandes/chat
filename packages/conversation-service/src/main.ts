@@ -8,6 +8,7 @@ async function bootstrap() {
 
   const appUrl = await app.getUrl();
 
-  console.log(`App started at ${appUrl}.`);
+  console.log(`Conversation service started at ${appUrl}.`);
+  console.log(`Conversation service playground started at ${appUrl}/graphql.`);
 }
 bootstrap();
