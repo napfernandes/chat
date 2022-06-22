@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ConversationActionOutput {
+  userId: String!
+  actionType: ConversationActionType!
+  createdAt: DateTime!
+}
+
+enum ConversationActionType {
+  MESSAGE_READ
+  MESSAGED_RECEIVED
+  MESSAGE_DELETED
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ConversationOutput {
+  id: String!
+  hash: String!
+  members: [String!]!
+  type: ConversationType!
+  title: String
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  actions: [ConversationActionOutput!]
+}
+
+enum ConversationType {
+  DIRECT_CONVERSATION
+  CHAT_ROOM
+}
+
+type Query {
+  findConversations: [ConversationOutput!]!
+}
+
+type Mutation {
+  insertConversation(input: InsertConversationInput!): ConversationOutput!
+}
+
+input InsertConversationInput {
+  members: [String!]!
+  type: ConversationType!
+  title: String
+  description: String
+}
