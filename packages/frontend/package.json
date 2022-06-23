@@ -9,7 +9,7 @@
     "vue-js"
   ],
   "author": "Nicolas Fernandes <nicolaspfernandes@outlook.com>",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/napfernandes/chat.git"

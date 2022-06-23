@@ -9,7 +9,7 @@
   ],
   "author": "Nicolas Fernandes",
   "homepage": "https://github.com/napfernandes/chat#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "src/main.ts",
   "repository": {
     "type": "git",
