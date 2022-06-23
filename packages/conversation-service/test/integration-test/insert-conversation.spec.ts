@@ -1,27 +1,18 @@
 import { HttpStatus } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Test, TestingModule } from '@nestjs/testing';
 
-import { ConversationService } from '../../src/conversation.service';
-import { ValidatorService } from '../../src/common/services/validator.service';
-import { Conversation, ConversationSchema } from '../../src/conversation.schema';
 import {
-  createInsertChatRoomConversationInput,
   createInsertDirectConversationInput,
+  createInsertChatRoomConversationInput,
 } from './seeds';
 import { ConversationType } from '../../src/conversation.enum';
+import { ConversationService } from '../../src/conversation.service';
+import { createConversationTestModule } from './helpers/create-conversation-test-module';
 
-describe('Create User', () => {
+describe('Insert conversation', () => {
   let conversationService: ConversationService;
 
   beforeAll(async () => {
-    const testingModule: TestingModule = await Test.createTestingModule({
-      imports: [
-        global.MongooseTestModule,
-        MongooseModule.forFeature([{ name: Conversation.name, schema: ConversationSchema }]),
-      ],
-      providers: [ValidatorService, ConversationService],
-    }).compile();
+    const testingModule = await createConversationTestModule();
 
     conversationService = testingModule.get<ConversationService>(ConversationService);
   });

@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { ConversationMessageInput } from 'src/models/conversation-message.input';
 import { ConversationType } from '../../src/conversation.enum';
 import {
   InsertConversationInput,
@@ -29,6 +30,18 @@ export function createInsertChatRoomConversationInput(
     ],
     title: faker.definitions.title,
     description: faker.lorem.lines(1),
+  };
+
+  return { ...defaultAttributes, ...attributes };
+}
+
+export function createConversationMessageInput(
+  attributes?: Partial<ConversationMessageInput>,
+): ConversationMessageInput {
+  const defaultAttributes: ConversationMessageInput = {
+    message: faker.lorem.text(),
+    userId: faker.datatype.uuid(),
+    conversationIdOrHash: faker.datatype.uuid(),
   };
 
   return { ...defaultAttributes, ...attributes };

@@ -15,6 +15,19 @@ export class ConversationAction {
   createdAt: Date;
 }
 
+export class ConversationMessage {
+  @Prop({ type: mongoose.Types.ObjectId })
+  id?: string;
+
+  @Prop({ type: mongoose.Types.ObjectId })
+  userId: string;
+
+  message: string;
+
+  @Prop({ type: mongoose.Types.Array, _id: false })
+  actions?: ConversationAction[] = [];
+}
+
 @Schema({
   autoIndex: true,
   autoCreate: true,
@@ -46,7 +59,7 @@ export class Conversation extends Document {
   updatedAt?: Date;
 
   @Prop({ type: mongoose.Types.Array, _id: false })
-  actions: ConversationAction[];
+  messages: ConversationMessage[];
 }
 
 export const ConversationSchema = CustomSchemaFactory.createForClass(Conversation);

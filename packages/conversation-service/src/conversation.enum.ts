@@ -6,6 +6,7 @@ export enum ConversationType {
 }
 
 export enum ConversationActionType {
+  MESSAGE_SENT = 'MessageSent',
   MESSAGE_READ = 'MessageRead',
   MESSAGED_RECEIVED = 'MessageReceived',
   MESSAGE_DELETED = 'MessageDeleted',

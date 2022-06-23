@@ -27,6 +27,21 @@ class ConversationActionOutput {
 }
 
 @ObjectType()
+class MessageOutput {
+  @Field({ nullable: true })
+  id?: string;
+
+  @Field()
+  userId: string;
+
+  @Field()
+  message: string;
+
+  @Field(() => [ConversationActionOutput], { nullable: true })
+  actions?: ConversationActionOutput[];
+}
+
+@ObjectType()
 export class ConversationOutput implements ConversationOutputAttributes {
   @Field()
   id: string;
@@ -52,8 +67,8 @@ export class ConversationOutput implements ConversationOutputAttributes {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [ConversationActionOutput], { nullable: true })
-  actions?: ConversationActionOutput[];
+  @Field(() => [MessageOutput], { nullable: true })
+  messages?: MessageOutput[];
 
   static from(attributes: Partial<ConversationOutputAttributes>): ConversationOutput {
     return plainToInstance(ConversationOutput, attributes);
