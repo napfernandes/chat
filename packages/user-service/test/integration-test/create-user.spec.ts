@@ -3,12 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { createUserInput } from './seeds';
-import { UserService } from '../../../../src/modules/user/user.service';
-import { User, UserSchema } from '../../../../src/modules/user/user.schema';
-import { TokenService } from '../../../../src/common/services/token.service';
-import { CryptoService } from '../../../../src/common/services/crypto.service';
-import { ValidatorService } from '../../../../src/common/services/validator.service';
-import { UserRepository } from '../../../../src/modules/user/user.repository';
+import { UserService } from '../../src/user.service';
+import { User, UserSchema } from '../../src/user.schema';
+import { UserRepository } from '../../src/user.repository';
+import { TokenService } from '../../src/common/services/token.service';
+import { CryptoService } from '../../src/common/services/crypto.service';
+import { ValidatorService } from '../../src/common/services/validator.service';
 
 describe('Create User', () => {
   let userService: UserService;

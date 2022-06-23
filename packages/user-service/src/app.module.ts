@@ -6,8 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MongooseModule, InjectConnection } from '@nestjs/mongoose';
 
-import { UserModule } from './modules/user/user.module';
-import { CustomMongoDBLogger } from './common/custom';
+import { UserModule } from './user.module';
+import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [

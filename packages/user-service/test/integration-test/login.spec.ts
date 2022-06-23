@@ -1,16 +1,16 @@
 import { HttpStatus } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { UserService } from '../../src/user.service';
+import { User, UserSchema } from '../../src/user.schema';
+import { UserRepository } from '../../src/user.repository';
 import { createLoginCredentialsInput, createUserInput } from './seeds';
-import { UserService } from '../../../../src/modules/user/user.service';
-import { User, UserSchema } from '../../../../src/modules/user/user.schema';
-import { TokenService } from '../../../../src/common/services/token.service';
-import { CryptoService } from '../../../../src/common/services/crypto.service';
-import { ValidatorService } from '../../../../src/common/services/validator.service';
-import { UserRepository } from '../../../../src/modules/user/user.repository';
-import { LoginCredentialsInput } from '../../../../src/modules/user/models/login-credentials.input';
-import { ConfigModule } from '@nestjs/config';
+import { TokenService } from '../../src/common/services/token.service';
+import { CryptoService } from '../../src/common/services/crypto.service';
+import { ValidatorService } from '../../src/common/services/validator.service';
+import { LoginCredentialsInput } from '../../src/models/login-credentials.input';
 
 describe('Login User', () => {
   let userService: UserService;
