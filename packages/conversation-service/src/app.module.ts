@@ -1,5 +1,6 @@
 import { join } from 'path';
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -21,6 +22,7 @@ import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
     }),
+    JwtModule.register({ secret: process.env.JWT_SECRET }),
   ],
 })
 export class AppModule {}
