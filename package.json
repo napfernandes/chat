@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start:dev": "docker-compose up -d && lerna run start:dev --stream --scope",
+    "start:dev:all": "docker-compose up -d && lerna run start:dev --stream",
     "test:integration": "lerna run test:integration --stream --scope",
     "test:coverage": "lerna run test:coverage --stream --scope",
     "build": "lerna run build --stream --scope",

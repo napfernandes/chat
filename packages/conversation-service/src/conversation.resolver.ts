@@ -1,6 +1,5 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ConversationService } from './conversation.service';
-
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ConversationOutput } from './models/conversation.output';
 import { InsertConversationInput } from './models/insert-conversation.input';
 

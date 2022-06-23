@@ -1,16 +1,17 @@
 import { join } from 'path';
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
+import { AuthModule } from './auth/auth.module';
 import { ConversationModule } from './conversation.module';
 import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [
+    AuthModule,
     ConversationModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URL, {
@@ -20,9 +21,9 @@ import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
       driver: ApolloDriver,
       debug: false,
       playground: true,
+      context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
     }),
-    JwtModule.register({ secret: process.env.JWT_SECRET }),
   ],
 })
 export class AppModule {}
