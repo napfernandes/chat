@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer';
 
 import { ConversationType } from '../conversation.enum';
 
-interface InsertConversationInputAttributes {
+export interface InsertConversationInputAttributes {
   members: string[];
   type: ConversationType;
   title?: string;

@@ -1,11 +1,11 @@
 import mongoose, { Document } from 'mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 
-import { CustomSchemaFactory } from '../../common/custom';
 import { ConversationType, ConversationActionType } from './conversation.enum';
+import { CustomSchemaFactory } from '../../common/custom/custom-schema-factory';
 
 export class ConversationAction {
-  @Prop()
+  @Prop({ type: mongoose.Types.ObjectId })
   userId: string;
 
   @Prop()
@@ -30,7 +30,7 @@ export class Conversation extends Document {
   @Prop()
   members: string[];
 
-  @Prop({ type: mongoose.Types.Array })
+  @Prop({ type: mongoose.Types.Array<mongoose.Types.ObjectId> })
   type: ConversationType;
 
   @Prop({ required: false })

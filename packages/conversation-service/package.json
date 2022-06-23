@@ -46,7 +46,7 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.2.0",
+    "@faker-js/faker": "^7.3.0",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.4.7",
@@ -62,7 +62,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "28.0.3",
-    "mongodb-memory-server": "^8.7.0",
+    "mongodb-memory-server": "^8.7.1",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
     "supertest": "^6.1.3",
@@ -80,17 +80,17 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.(t|j)s"
     ],
     "setupFilesAfterEnv": [
-      "./helpers/bootstrap-integration-tests.ts"
+      "./test/integration-test/helpers/bootstrap-integration-tests.ts"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
