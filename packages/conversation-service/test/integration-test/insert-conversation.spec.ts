@@ -2,17 +2,14 @@ import { HttpStatus } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { ConversationService } from '../../src/conversation.service';
 import { ValidatorService } from '../../src/common/services/validator.service';
-import { ConversationService } from '../../src/modules/conversation/conversation.service';
-import {
-  Conversation,
-  ConversationSchema,
-} from '../../src/modules/conversation/conversation.schema';
+import { Conversation, ConversationSchema } from '../../src/conversation.schema';
 import {
   createInsertChatRoomConversationInput,
   createInsertDirectConversationInput,
 } from './seeds';
-import { ConversationType } from '../../src/modules/conversation/conversation.enum';
+import { ConversationType } from '../../src/conversation.enum';
 
 describe('Create User', () => {
   let conversationService: ConversationService;

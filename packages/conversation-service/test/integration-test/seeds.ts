@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { ConversationType } from '../../src/modules/conversation/conversation.enum';
+import { ConversationType } from '../../src/conversation.enum';
 import {
   InsertConversationInput,
   InsertConversationInputAttributes,
-} from '../../src/modules/conversation/models/insert-conversation.input';
+} from '../../src/models/insert-conversation.input';
 
 export function createInsertDirectConversationInput(
   attributes?: Partial<InsertConversationInputAttributes>,

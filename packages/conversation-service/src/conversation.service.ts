@@ -1,12 +1,13 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+
 import { Conversation } from './conversation.schema';
 import { ConversationOutput } from './models/conversation.output';
-
-import { ValidatorService } from '../../common/services/validator.service';
+import { ValidatorService } from './common/services/validator.service';
 import { InsertConversationInput } from './models/insert-conversation.input';
 import InsertConversationValidator from './validators/insert-conversation.validator';
+
 @Injectable()
 export class ConversationService {
   constructor(

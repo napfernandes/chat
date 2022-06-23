@@ -1,8 +1,8 @@
 import mongoose, { Document } from 'mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 
+import { CustomSchemaFactory } from './common/custom/custom-schema-factory';
 import { ConversationType, ConversationActionType } from './conversation.enum';
-import { CustomSchemaFactory } from '../../common/custom/custom-schema-factory';
 
 export class ConversationAction {
   @Prop({ type: mongoose.Types.ObjectId })

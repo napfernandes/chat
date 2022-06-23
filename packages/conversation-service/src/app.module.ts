@@ -5,8 +5,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
-import { CustomMongoDBLogger } from './common/custom';
-import { ConversationModule } from './modules/conversation/conversation.module';
+import { ConversationModule } from './conversation.module';
+import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [
