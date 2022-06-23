@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 
-import { CustomSchemaFactory } from 'src/common/custom';
+import { CustomSchemaFactory } from '../../common/custom';
 
 @Schema({
   autoIndex: true,
