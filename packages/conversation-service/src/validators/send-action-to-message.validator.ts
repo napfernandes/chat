@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 
-import { MessageActionType } from 'src/conversation.enum';
+import { MessageActionType } from '../conversation.enum';
 
 export default Joi.object().keys({
   userId: Joi.string().required(),

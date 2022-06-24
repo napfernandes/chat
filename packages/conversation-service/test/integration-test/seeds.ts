@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { ConversationMessageInput } from 'src/models/conversation-message.input';
-import { ConversationType } from '../../src/conversation.enum';
+import { MessageActionInput } from 'src/models/message-action.input';
+import { ConversationType, MessageActionType } from '../../src/conversation.enum';
 import {
   InsertConversationInput,
   InsertConversationInputAttributes,
@@ -41,6 +42,19 @@ export function createConversationMessageInput(
   const defaultAttributes: ConversationMessageInput = {
     message: faker.lorem.text(),
     userId: faker.datatype.uuid(),
+    conversationIdOrHash: faker.datatype.uuid(),
+  };
+
+  return { ...defaultAttributes, ...attributes };
+}
+
+export function createMessageActionInput(
+  attributes?: Partial<MessageActionInput>,
+): MessageActionInput {
+  const defaultAttributes: MessageActionInput = {
+    userId: faker.datatype.uuid(),
+    messageId: faker.datatype.uuid(),
+    actionType: MessageActionType.MESSAGE_SENT,
     conversationIdOrHash: faker.datatype.uuid(),
   };
 
