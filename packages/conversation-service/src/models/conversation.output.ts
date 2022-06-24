@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { plainToInstance } from 'class-transformer';
 
-import { ConversationActionType, ConversationType } from '../conversation.enum';
+import { ConversationType, MessageActionType } from '../conversation.enum';
 
 interface ConversationOutputAttributes {
   id: string;
@@ -15,19 +15,19 @@ interface ConversationOutputAttributes {
 }
 
 @ObjectType()
-class ConversationActionOutput {
+class MessageForActionOutput {
   @Field()
   userId: string;
 
-  @Field(() => ConversationActionType)
-  actionType: ConversationActionType;
+  @Field(() => MessageActionType)
+  actionType: MessageActionType;
 
   @Field()
   createdAt: Date;
 }
 
 @ObjectType()
-class MessageOutput {
+class ConversationForMessageOutput {
   @Field({ nullable: true })
   id?: string;
 
@@ -37,8 +37,8 @@ class MessageOutput {
   @Field()
   message: string;
 
-  @Field(() => [ConversationActionOutput], { nullable: true })
-  actions?: ConversationActionOutput[];
+  @Field(() => [MessageForActionOutput], { nullable: true })
+  actions?: MessageForActionOutput[];
 }
 
 @ObjectType()
@@ -67,8 +67,8 @@ export class ConversationOutput implements ConversationOutputAttributes {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [MessageOutput], { nullable: true })
-  messages?: MessageOutput[];
+  @Field(() => [ConversationForMessageOutput], { nullable: true })
+  messages?: ConversationForMessageOutput[];
 
   static from(attributes: Partial<ConversationOutputAttributes>): ConversationOutput {
     return plainToInstance(ConversationOutput, attributes);

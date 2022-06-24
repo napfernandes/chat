@@ -4,6 +4,8 @@ import { ConversationOutput } from './models/conversation.output';
 import { InsertConversationInput } from './models/insert-conversation.input';
 import { ConversationMessageOutput } from './models/conversation-message.output';
 import { ConversationMessageInput } from './models/conversation-message.input';
+import { MessageActionOutput } from './models/message-action.output';
+import { MessageActionInput } from './models/message-action.input';
 
 @Resolver(() => ConversationOutput)
 export class ConversationResolver {
@@ -21,6 +23,13 @@ export class ConversationResolver {
     @Args('input') input: ConversationMessageInput,
   ): Promise<ConversationMessageOutput> {
     return this.conversationService.sendMessageToConversation(input);
+  }
+
+  @Mutation(() => MessageActionOutput)
+  async sendActionToMessage(
+    @Args('input') input: MessageActionInput,
+  ): Promise<MessageActionOutput> {
+    return this.conversationService.sendActionToMessage(input);
   }
 
   @Query(() => [ConversationOutput])

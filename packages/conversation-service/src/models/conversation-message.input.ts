@@ -8,7 +8,7 @@ export interface ConversationMessageInputAttributes {
 }
 
 @InputType()
-export class ConversationMessageInput {
+export class ConversationMessageInput implements ConversationMessageInputAttributes {
   @Field()
   userId: string;
 

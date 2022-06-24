@@ -2,9 +2,11 @@ import { Model } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Conversation, ConversationMessage } from './conversation.schema';
-import { ConversationActionType } from './conversation.enum';
-import { InsertMessageToConversationError } from './insert-message-to-conversation.error';
+
+import { MessageActionType } from './conversation.enum';
+import { InsertActionToMessageError } from './errors/insert-action-to-message.error';
+import { Conversation, ConversationMessage, MessageAction } from './conversation.schema';
+import { InsertMessageToConversationError } from './errors/insert-message-to-conversation.error';
 
 @Injectable()
 export class ConversationRepository {
@@ -34,13 +36,13 @@ export class ConversationRepository {
       {
         createdAt: new Date(),
         userId: message.userId,
-        actionType: ConversationActionType.MESSAGE_SENT,
+        actionType: MessageActionType.MESSAGE_SENT,
       },
     ];
 
     const updateResult = await this.ConversationModel.updateOne(
       { _id: conversationId },
-      { $push: { messages: { message } } },
+      { $push: { messages: message } },
     ).exec();
 
     if (!updateResult.acknowledged || updateResult.modifiedCount === 0) {
@@ -48,5 +50,25 @@ export class ConversationRepository {
     }
 
     return message;
+  }
+
+  async insertActionToMessage(
+    conversationId: string,
+    messageId: string,
+    action: MessageAction,
+  ): Promise<MessageAction> {
+    action.createdAt = new Date();
+
+    const updateResult = await this.ConversationModel.updateOne(
+      { _id: conversationId },
+      { $push: { 'messages.$[message].actions': action } },
+      { arrayFilters: [{ 'message.id': messageId }] },
+    );
+
+    if (!updateResult.acknowledged || updateResult.modifiedCount === 0) {
+      throw new InsertActionToMessageError(conversationId);
+    }
+
+    return action;
   }
 }

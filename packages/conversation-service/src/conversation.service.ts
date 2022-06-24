@@ -1,18 +1,20 @@
 import { Model } from 'mongoose';
-import { ObjectId } from 'mongodb';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Conversation, ConversationMessage } from './conversation.schema';
-import { ConversationActionType } from './conversation.enum';
 import { ConversationOutput } from './models/conversation.output';
 import { ConversationRepository } from './conversation.repository';
+import { MessageActionInput } from './models/message-action.input';
+import { MessageActionOutput } from './models/message-action.output';
 import { ValidatorService } from './common/services/validator.service';
 import { InsertConversationInput } from './models/insert-conversation.input';
 import { ConversationMessageInput } from './models/conversation-message.input';
 import { ConversationMessageOutput } from './models/conversation-message.output';
 import InsertConversationValidator from './validators/insert-conversation.validator';
+import SendActionToMessageValidator from './validators/send-action-to-message.validator';
+import { Conversation, ConversationMessage, MessageAction } from './conversation.schema';
 import SendMessageToConversationValidator from './validators/send-message-to-conversation.validator';
+
 @Injectable()
 export class ConversationService {
   constructor(
@@ -41,22 +43,31 @@ export class ConversationService {
   ): Promise<ConversationMessageOutput> {
     await this.validatorService.validate(SendMessageToConversationValidator, input);
 
-    const conversationFound = await this.conversationRepository.findConversationByIdOrHash(
-      input.conversationIdOrHash,
-    );
-
     const message: ConversationMessage = { userId: input.userId, message: input.message };
     const conversationMessage = await this.conversationRepository.insertMessageToConversation(
-      conversationFound.id,
+      input.conversationIdOrHash,
       message,
     );
 
     return ConversationMessageOutput.from({ messageId: conversationMessage.id });
   }
 
-  async findConversations(): Promise<ConversationOutput[]> {
-    const conversations = await this.ConversationModel.find().exec();
+  async sendActionToMessage(input: MessageActionInput): Promise<MessageActionOutput> {
+    await this.validatorService.validate(SendActionToMessageValidator, input);
 
-    return conversations.map((conversation) => ConversationOutput.from(conversation.toJSON()));
+    const action: MessageAction = { userId: input.userId, actionType: input.actionType };
+    await this.conversationRepository.insertActionToMessage(
+      input.conversationIdOrHash,
+      input.messageId,
+      action,
+    );
+
+    return MessageActionOutput.from({ acknowledged: true });
+  }
+
+  async findConversations(): Promise<ConversationOutput[]> {
+    const conversations = await this.ConversationModel.find({}).exec();
+
+    return conversations.map((conversation) => ConversationOutput.from(conversation.toObject()));
   }
 }

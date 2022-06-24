@@ -2,17 +2,17 @@ import mongoose, { Document } from 'mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 
 import { CustomSchemaFactory } from './common/custom/custom-schema-factory';
-import { ConversationType, ConversationActionType } from './conversation.enum';
+import { ConversationType, MessageActionType } from './conversation.enum';
 
-export class ConversationAction {
+export class MessageAction {
   @Prop({ type: mongoose.Types.ObjectId })
   userId: string;
 
   @Prop()
-  actionType: ConversationActionType;
+  actionType: MessageActionType;
 
   @Prop()
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export class ConversationMessage {
@@ -25,7 +25,7 @@ export class ConversationMessage {
   message: string;
 
   @Prop({ type: mongoose.Types.Array, _id: false })
-  actions?: ConversationAction[] = [];
+  actions?: MessageAction[] = [];
 }
 
 @Schema({

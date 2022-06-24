@@ -5,17 +5,17 @@ export enum ConversationType {
   CHAT_ROOM = 'ChatRoom',
 }
 
-export enum ConversationActionType {
+export enum MessageActionType {
   MESSAGE_SENT = 'MessageSent',
   MESSAGE_READ = 'MessageRead',
-  MESSAGED_RECEIVED = 'MessageReceived',
   MESSAGE_DELETED = 'MessageDeleted',
+  MESSAGE_RECEIVED = 'MessageReceived',
 }
 
 registerEnumType(ConversationType, {
   name: 'ConversationType',
 });
 
-registerEnumType(ConversationActionType, {
-  name: 'ConversationActionType',
+registerEnumType(MessageActionType, {
+  name: 'MessageActionType',
 });

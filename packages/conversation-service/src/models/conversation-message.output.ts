@@ -6,7 +6,7 @@ export interface ConversationMessageOutputAttributes {
 }
 
 @ObjectType()
-export class ConversationMessageOutput {
+export class ConversationMessageOutput implements ConversationMessageOutputAttributes {
   @Field()
   messageId: string;
 
