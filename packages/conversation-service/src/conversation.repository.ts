@@ -43,7 +43,7 @@ export class ConversationRepository {
     const updateResult = await this.ConversationModel.updateOne(
       { _id: conversationId },
       { $push: { messages: message } },
-    ).exec();
+    );
 
     if (!updateResult.acknowledged || updateResult.modifiedCount === 0) {
       throw new InsertMessageToConversationError(conversationId);
