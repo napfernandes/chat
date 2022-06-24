@@ -11,8 +11,8 @@ type MessageForActionOutput {
 enum MessageActionType {
   MESSAGE_SENT
   MESSAGE_READ
-  MESSAGED_RECEIVED
   MESSAGE_DELETED
+  MESSAGE_RECEIVED
 }
 
 """
