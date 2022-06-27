@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
-import HomeView from './views/home/view';
-import LoginView from './views/login/view';
+import { Routes } from './routes';
 import reportWebVitals from './reportWebVitals';
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,10 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/home" element={<HomeView />} />
-        <Route path="/login" element={<LoginView />} />
-      </Routes>
+      <Routes />
     </BrowserRouter>
   </React.StrictMode>
 );

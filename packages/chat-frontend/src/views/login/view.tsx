@@ -1,9 +1,12 @@
+import './styles.css';
 import LoginComponent from "../../components/login/component";
 
 export default function LoginView() {
     return (
-        <div id='login-view'>
-            <LoginComponent />
+        <div className='login-view'>
+            <div className='login-wrap'>
+                <LoginComponent />
+            </div>
         </div>
     )
 }
