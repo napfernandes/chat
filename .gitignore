@@ -1,32 +1,3 @@
-# compiled output
-/dist
-/node_modules
-
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# OS
-.DS_Store
-
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -34,8 +5,24 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-node_modules/
-dist/
+# Tests
+/coverage
+/.nyc_output
+
+# General
 .env
-.nvmrc
+dist/
 coverage/
+node_modules/
+
+# General - packages
+packages/*/.env
+packages/*/build
+packages/*/coverage
+packages/*/node_modules
+
+# Logs - packages
+packages/*/logs
+packages/*/*.log
+packages/*/npm-debug.log*
+packages/*/lerna-debug.log*
