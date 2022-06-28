@@ -12,5 +12,14 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
+  localstack:
+    container_name: chat-localstack
+    image: localstack/localstack
+    environment:
+      - HOSTNAME_EXTERNAL=localstack
+      - SERVICES=sqs:4576
+    ports:
+      - "4576:4576"
+
 volumes:
   mongodb_data_container:
