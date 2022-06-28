@@ -14,6 +14,7 @@
 dist/
 coverage/
 node_modules/
+.nvmrc
 
 # General - packages
 packages/*/.env
