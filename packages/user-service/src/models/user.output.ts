@@ -1,16 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { plainToInstance } from 'class-transformer';
 
-interface UserOutputAttributes {
-  id: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt?: Date;
-}
-
 @ObjectType()
-export class UserOutput implements UserOutputAttributes {
+export class UserOutput {
   @Field()
   id: string;
 
@@ -26,7 +18,7 @@ export class UserOutput implements UserOutputAttributes {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  static from(attributes: Partial<UserOutputAttributes>): UserOutput {
+  static from(attributes: Partial<UserOutput>): UserOutput {
     return plainToInstance(UserOutput, attributes);
   }
 }

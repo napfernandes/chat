@@ -1,16 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { plainToInstance } from 'class-transformer';
 
-interface DeleteUserOutputAttributes {
-  deleted: boolean;
-}
-
 @ObjectType()
-export class DeleteUserOutput implements DeleteUserOutputAttributes {
+export class DeleteUserOutput {
   @Field()
   deleted: boolean;
 
-  static from(attributes: Partial<DeleteUserOutputAttributes>): DeleteUserOutput {
+  static from(attributes: Partial<DeleteUserOutput>): DeleteUserOutput {
     return plainToInstance(DeleteUserOutput, attributes);
   }
 }

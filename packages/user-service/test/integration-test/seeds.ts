@@ -1,12 +1,9 @@
 import { faker } from '@faker-js/faker';
 
-import {
-  LoginCredentialsInput,
-  LoginCredentialsInputAttributes,
-} from '../../src/models/login-credentials.input';
-import { CreateUserInput, CreateUserInputAttributes } from '../../src/models/create-user.input';
+import { CreateUserInput } from '../../src/models/create-user.input';
+import { LoginCredentialsInput } from '../../src/models/login-credentials.input';
 
-export function createUserInput(attributes?: Partial<CreateUserInputAttributes>): CreateUserInput {
+export function createUserInput(attributes?: Partial<CreateUserInput>): CreateUserInput {
   const defaultAttributes: CreateUserInput = {
     email: faker.internet.email(),
     password: faker.internet.password(),
@@ -16,7 +13,7 @@ export function createUserInput(attributes?: Partial<CreateUserInputAttributes>)
 }
 
 export function createLoginCredentialsInput(
-  attributes?: Partial<LoginCredentialsInputAttributes>,
+  attributes?: Partial<LoginCredentialsInput>,
 ): LoginCredentialsInput {
   const defaultAttributes: LoginCredentialsInput = {
     email: faker.internet.email(),

@@ -1,11 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql';
-
-interface DeleteUserInputAttributes {
-  idOrEmail: string;
-}
+import { plainToInstance } from 'class-transformer';
 
 @InputType()
-export class DeleteUserInput implements DeleteUserInputAttributes {
+export class DeleteUserInput {
   @Field()
   idOrEmail: string;
+
+  static from(attributes: Partial<DeleteUserInput>): DeleteUserInput {
+    return plainToInstance(DeleteUserInput, attributes);
+  }
 }
