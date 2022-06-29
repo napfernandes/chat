@@ -1,13 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 
-export interface SubscribeTopicOutputAttributes {
-  name: string;
-}
-
-export class SubscribeTopicOutput implements SubscribeTopicOutputAttributes {
+export class SubscribeTopicOutput {
   name: string;
 
-  static from(attributes: Partial<SubscribeTopicOutputAttributes>): SubscribeTopicOutput {
+  static from(attributes: Partial<SubscribeTopicOutput>): SubscribeTopicOutput {
     return plainToInstance(SubscribeTopicOutput, attributes);
   }
 }

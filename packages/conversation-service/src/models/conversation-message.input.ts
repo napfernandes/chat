@@ -1,14 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { plainToInstance } from 'class-transformer';
 
-export interface ConversationMessageInputAttributes {
-  userId: string;
-  message: string;
-  conversationIdOrHash: string;
-}
-
 @InputType()
-export class ConversationMessageInput implements ConversationMessageInputAttributes {
+export class ConversationMessageInput {
   @Field()
   userId: string;
 
@@ -18,7 +12,7 @@ export class ConversationMessageInput implements ConversationMessageInputAttribu
   @Field()
   conversationIdOrHash: string;
 
-  static from(attributes: Partial<ConversationMessageInputAttributes>): ConversationMessageInput {
+  static from(attributes: Partial<ConversationMessageInput>): ConversationMessageInput {
     return plainToInstance(ConversationMessageInput, attributes);
   }
 }

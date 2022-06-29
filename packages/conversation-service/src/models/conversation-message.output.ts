@@ -1,16 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { plainToInstance } from 'class-transformer';
 
-export interface ConversationMessageOutputAttributes {
-  messageId: string;
-}
-
 @ObjectType()
-export class ConversationMessageOutput implements ConversationMessageOutputAttributes {
+export class ConversationMessageOutput {
   @Field()
   messageId: string;
 
-  static from(attributes: Partial<ConversationMessageOutputAttributes>): ConversationMessageOutput {
+  static from(attributes: Partial<ConversationMessageOutput>): ConversationMessageOutput {
     return plainToInstance(ConversationMessageOutput, attributes);
   }
 }

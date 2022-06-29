@@ -1,13 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 
-export interface CreateTopicOutputAttributes {
-  name: string;
-}
-
-export class CreateTopicOutput implements CreateTopicOutputAttributes {
+export class CreateTopicOutput {
   name: string;
 
-  static from(attributes: Partial<CreateTopicOutputAttributes>): CreateTopicOutput {
+  static from(attributes: Partial<CreateTopicOutput>): CreateTopicOutput {
     return plainToInstance(CreateTopicOutput, attributes);
   }
 }

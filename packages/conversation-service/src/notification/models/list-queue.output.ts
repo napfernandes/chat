@@ -1,15 +1,10 @@
 import { plainToInstance } from 'class-transformer';
 
-export interface ListQueueOutputAttributes {
-  url: string;
-  name?: string;
-}
-
-export class ListQueueOutput implements ListQueueOutputAttributes {
+export class ListQueueOutput {
   url: string;
   name?: string;
 
-  static from(attributes: Partial<ListQueueOutputAttributes>): ListQueueOutput {
+  static from(attributes: Partial<ListQueueOutput>): ListQueueOutput {
     return plainToInstance(ListQueueOutput, attributes);
   }
 }

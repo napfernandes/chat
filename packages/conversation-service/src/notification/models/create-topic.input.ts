@@ -5,16 +5,11 @@ interface TagInput {
   value: string;
 }
 
-export interface CreateTopicInputAttributes {
-  name: string;
-  tags?: TagInput[];
-}
-
-export class CreateTopicInput implements CreateTopicInputAttributes {
+export class CreateTopicInput {
   name: string;
   tags?: TagInput[] = [];
 
-  static from(attributes: Partial<CreateTopicInputAttributes>): CreateTopicInput {
+  static from(attributes: Partial<CreateTopicInput>): CreateTopicInput {
     return plainToInstance(CreateTopicInput, attributes);
   }
 }

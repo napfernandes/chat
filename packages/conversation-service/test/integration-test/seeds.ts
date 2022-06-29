@@ -1,14 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { ConversationMessageInput } from 'src/models/conversation-message.input';
-import { MessageActionInput } from 'src/models/message-action.input';
+import { MessageActionInput } from '../../src/models/message-action.input';
 import { ConversationType, MessageActionType } from '../../src/conversation.enum';
-import {
-  InsertConversationInput,
-  InsertConversationInputAttributes,
-} from '../../src/models/insert-conversation.input';
+import { InsertConversationInput } from '../../src/models/insert-conversation.input';
+import { ConversationMessageInput } from '../../src/models/conversation-message.input';
 
 export function createInsertDirectConversationInput(
-  attributes?: Partial<InsertConversationInputAttributes>,
+  attributes?: Partial<InsertConversationInput>,
 ): InsertConversationInput {
   const defaultAttributes: InsertConversationInput = {
     type: ConversationType.DIRECT_CONVERSATION,
@@ -19,7 +16,7 @@ export function createInsertDirectConversationInput(
 }
 
 export function createInsertChatRoomConversationInput(
-  attributes?: Partial<InsertConversationInputAttributes>,
+  attributes?: Partial<InsertConversationInput>,
 ): InsertConversationInput {
   const defaultAttributes: InsertConversationInput = {
     type: ConversationType.CHAT_ROOM,

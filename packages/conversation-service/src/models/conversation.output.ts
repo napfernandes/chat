@@ -3,17 +3,6 @@ import { plainToInstance } from 'class-transformer';
 
 import { ConversationType, MessageActionType } from '../conversation.enum';
 
-interface ConversationOutputAttributes {
-  id: string;
-  hash: string;
-  members: string[];
-  type: ConversationType;
-  title?: string;
-  description?: string;
-  createdAt: Date;
-  updatedAt?: Date;
-}
-
 @ObjectType()
 class MessageForActionOutput {
   @Field()
@@ -42,7 +31,7 @@ class ConversationForMessageOutput {
 }
 
 @ObjectType()
-export class ConversationOutput implements ConversationOutputAttributes {
+export class ConversationOutput {
   @Field()
   id: string;
 
@@ -70,7 +59,7 @@ export class ConversationOutput implements ConversationOutputAttributes {
   @Field(() => [ConversationForMessageOutput], { nullable: true })
   messages?: ConversationForMessageOutput[];
 
-  static from(attributes: Partial<ConversationOutputAttributes>): ConversationOutput {
+  static from(attributes: Partial<ConversationOutput>): ConversationOutput {
     return plainToInstance(ConversationOutput, attributes);
   }
 }

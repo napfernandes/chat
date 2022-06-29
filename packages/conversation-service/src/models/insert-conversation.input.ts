@@ -3,13 +3,6 @@ import { plainToInstance } from 'class-transformer';
 
 import { ConversationType } from '../conversation.enum';
 
-export interface InsertConversationInputAttributes {
-  members: string[];
-  type: ConversationType;
-  title?: string;
-  description?: string;
-}
-
 @InputType()
 export class InsertConversationInput {
   @Field(() => [String])
@@ -24,7 +17,7 @@ export class InsertConversationInput {
   @Field({ nullable: true })
   description?: string;
 
-  static from(attributes: Partial<InsertConversationInputAttributes>): InsertConversationInput {
+  static from(attributes: Partial<InsertConversationInput>): InsertConversationInput {
     return plainToInstance(InsertConversationInput, attributes);
   }
 }
