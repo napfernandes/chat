@@ -7,12 +7,16 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { AuthModule } from './auth/auth.module';
 import { ConversationModule } from './conversation.module';
+import { NotificationModule } from './notification/notification.module';
+import { SubscriptionModule } from './subscriptions/subscription.module';
 import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [
     AuthModule,
+    NotificationModule,
     ConversationModule,
+    SubscriptionModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URL, {
       logger: CustomMongoDBLogger,

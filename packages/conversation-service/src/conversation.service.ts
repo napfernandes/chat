@@ -2,11 +2,14 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
+import { MessageActionType } from './conversation.enum';
+import { QueueService } from './notification/queue.service';
 import { ConversationOutput } from './models/conversation.output';
 import { ConversationRepository } from './conversation.repository';
 import { MessageActionInput } from './models/message-action.input';
 import { MessageActionOutput } from './models/message-action.output';
 import { ValidatorService } from './common/services/validator.service';
+import { ConversationActionType } from './conversation-action-type.enum';
 import { InsertConversationInput } from './models/insert-conversation.input';
 import { ConversationMessageInput } from './models/conversation-message.input';
 import { ConversationMessageOutput } from './models/conversation-message.output';
@@ -18,6 +21,7 @@ import SendMessageToConversationValidator from './validators/send-message-to-con
 @Injectable()
 export class ConversationService {
   constructor(
+    private readonly queueService: QueueService,
     private readonly validatorService: ValidatorService,
     private readonly conversationRepository: ConversationRepository,
     @InjectModel(Conversation.name) private readonly ConversationModel: Model<Conversation>,
@@ -35,7 +39,14 @@ export class ConversationService {
 
     await conversation.save();
 
-    return ConversationOutput.from(conversation.toObject());
+    const conversationOutput = ConversationOutput.from(conversation.toObject());
+
+    await this.queueService.sendMessageToQueue<ConversationOutput>({
+      queueName: ConversationActionType.CONVERSATION_STARTED,
+      messageBody: conversationOutput,
+    });
+
+    return conversationOutput;
   }
 
   async sendMessageToConversation(

@@ -1,11 +1,12 @@
-import { ConversationService } from './conversation.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { ConversationService } from './conversation.service';
 import { ConversationOutput } from './models/conversation.output';
-import { InsertConversationInput } from './models/insert-conversation.input';
-import { ConversationMessageOutput } from './models/conversation-message.output';
-import { ConversationMessageInput } from './models/conversation-message.input';
-import { MessageActionOutput } from './models/message-action.output';
 import { MessageActionInput } from './models/message-action.input';
+import { MessageActionOutput } from './models/message-action.output';
+import { InsertConversationInput } from './models/insert-conversation.input';
+import { ConversationMessageInput } from './models/conversation-message.input';
+import { ConversationMessageOutput } from './models/conversation-message.output';
 
 @Resolver(() => ConversationOutput)
 export class ConversationResolver {
