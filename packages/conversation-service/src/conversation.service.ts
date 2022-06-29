@@ -40,7 +40,7 @@ export class ConversationService {
 
     const conversationOutput = ConversationOutput.from(conversation.toObject());
 
-    await this.queueService.sendMessageToQueue<ConversationOutput>({
+    this.queueService.sendMessageToQueue<ConversationOutput>({
       queueName: ConversationActionType.CONVERSATION_STARTED,
       messageBody: conversationOutput,
     });

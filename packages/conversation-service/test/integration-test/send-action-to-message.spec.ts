@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
-import { MessageActionType } from '../../src/conversation.enum';
 
+import { MessageActionType } from '../../src/conversation.enum';
 import { ConversationService } from '../../src/conversation.service';
 import { createConversationTestModule } from './helpers/create-conversation-test-module';
 import {

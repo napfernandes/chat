@@ -52,29 +52,30 @@ describe('Insert conversation', () => {
         });
       });
     });
+  });
 
-    describe('when all inputs are correct', () => {
-      it('should create a direct conversation successfully', async () => {
-        const input = createInsertDirectConversationInput();
-        const conversationOutput = await conversationService.insertConversation(input);
+  describe('when all inputs are correct', () => {
+    it('should create a direct conversation successfully', async () => {
+      const input = createInsertDirectConversationInput();
 
-        expect(conversationOutput).toBeInstanceOf(Object);
-        expect(conversationOutput.title).toBeUndefined();
-        expect(conversationOutput.description).toBeUndefined();
-        expect(conversationOutput.createdAt).toBeInstanceOf(Date);
-        expect(conversationOutput.members).toHaveLength(input.members.length);
-      });
+      const conversationOutput = await conversationService.insertConversation(input);
 
-      it('should create a chat room successfully', async () => {
-        const input = createInsertChatRoomConversationInput();
-        const conversationOutput = await conversationService.insertConversation(input);
+      expect(conversationOutput).toBeInstanceOf(Object);
+      expect(conversationOutput.title).toBeUndefined();
+      expect(conversationOutput.description).toBeUndefined();
+      expect(conversationOutput.createdAt).toBeInstanceOf(Date);
+      expect(conversationOutput.members).toHaveLength(input.members.length);
+    });
 
-        expect(conversationOutput).toBeInstanceOf(Object);
-        expect(conversationOutput.title).not.toBeUndefined();
-        expect(conversationOutput.description).not.toBeUndefined();
-        expect(conversationOutput.createdAt).toBeInstanceOf(Date);
-        expect(conversationOutput.members).toHaveLength(input.members.length);
-      });
+    it('should create a chat room successfully', async () => {
+      const input = createInsertChatRoomConversationInput();
+      const conversationOutput = await conversationService.insertConversation(input);
+
+      expect(conversationOutput).toBeInstanceOf(Object);
+      expect(conversationOutput.title).not.toBeUndefined();
+      expect(conversationOutput.description).not.toBeUndefined();
+      expect(conversationOutput.createdAt).toBeInstanceOf(Date);
+      expect(conversationOutput.members).toHaveLength(input.members.length);
     });
   });
 });
