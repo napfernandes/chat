@@ -1,7 +1,5 @@
-import * as http from 'http';
 import { SQS } from 'aws-sdk';
-
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { ListQueueOutput } from './models/list-queue.output';
 import { SendMessageToQueueInput } from './models/send-message-to-queue.input';
@@ -9,18 +7,7 @@ import { SendMessageToQueueOutput } from './models/send-message-to-queue.output'
 
 @Injectable()
 export class QueueService {
-  sqsInstance: SQS;
-
-  constructor() {
-    this.sqsInstance = new SQS({
-      apiVersion: '2012-11-05',
-      region: process.env.AWS_REGION,
-      endpoint: process.env.QUEUE_URL,
-      httpOptions: {
-        agent: new http.Agent({ keepAlive: true }),
-      },
-    });
-  }
+  constructor(@Inject('Queue') private readonly sqsInstance: SQS) {}
 
   get Instance() {
     return this.sqsInstance;
