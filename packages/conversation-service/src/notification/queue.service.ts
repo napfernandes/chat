@@ -33,7 +33,6 @@ export class QueueService {
   }
 
   async createQueueByName(queueName: string): Promise<ListQueueOutput> {
-    console.log(`Going to create queue ${queueName}...`);
     const createdQueue = await this.sqsInstance.createQueue({ QueueName: queueName }).promise();
 
     return ListQueueOutput.from({ url: createdQueue.QueueUrl });
@@ -41,17 +40,11 @@ export class QueueService {
 
   async getOrCreateQueue(queueName: string): Promise<ListQueueOutput> {
     try {
-      console.log(`Getting queue or create ${queueName}...`);
       const existingQueue = await this.getQueueByName(queueName);
-      console.log(existingQueue);
+
       return existingQueue;
     } catch (error) {
-      console.log(error);
-      console.log(`Then create a queue ${queueName}...`);
-      const createdQueue = await this.createQueueByName(queueName);
-      console.log(createdQueue);
-
-      return createdQueue;
+      return this.createQueueByName(queueName);
     }
   }
 

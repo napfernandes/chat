@@ -17,8 +17,6 @@ export class SubscriptionService {
 
   async on<T>(topicName: string, handlerFunction: SubscriptionHandlerFunction<T>): Promise<void> {
     const queue = await this.queueService.getOrCreateQueue(topicName);
-
-    console.log(`Consuming ${queue.name}/${queue.url}...`);
     const consumer = Consumer.create({
       queueUrl: queue.url,
       sqs: this.queueService.Instance,
@@ -28,21 +26,14 @@ export class SubscriptionService {
           body: JSON.parse(message.Body) as T,
         };
 
-        console.log(`HANDLING ${queue.url}...`);
-
         handlerFunction(subscriptionMessage);
       },
     });
 
-    consumer.on('error', (err) => {
-      console.log(`ON ERROR for ${queue.url}`);
-      console.error(err);
-    });
+    console.info(`Subscription started for ${topicName}.`);
 
-    consumer.on('processing_error', (err) => {
-      console.log(`ON processing_error for ${queue.url}`);
-      console.error(err);
-    });
+    consumer.on('error', (err) => console.error(err));
+    consumer.on('processing_error', (err) => console.error(err));
 
     consumer.start();
   }

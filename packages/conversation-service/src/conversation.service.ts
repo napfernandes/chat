@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { MessageActionType } from './conversation.enum';
 import { QueueService } from './notification/queue.service';
 import { ConversationOutput } from './models/conversation.output';
 import { ConversationRepository } from './conversation.repository';
