@@ -13,9 +13,6 @@ export class SubscriptionModule {
     private readonly subscriptionService: SubscriptionService,
     private readonly conversationStartedSubscription: ConversationStartedSubscription,
   ) {
-    this.subscriptionService.on(
-      this.conversationStartedSubscription.topicName,
-      this.conversationStartedSubscription.onSubscribe,
-    );
+    this.subscriptionService.on(this.conversationStartedSubscription);
   }
 }
