@@ -3,20 +3,19 @@ import { Consumer } from 'sqs-consumer';
 import { Injectable } from '@nestjs/common';
 
 import { QueueService } from '@napfernandes/queue';
+import { BaseSubscription } from './base-subscription';
 
 export interface SubscriptionMessage<T> {
   messageId?: string;
   body?: T;
 }
 
-type SubscriptionHandlerFunction<T> = (message: SubscriptionMessage<T>) => Promise<void>;
-
 @Injectable()
 export class SubscriptionService {
   constructor(private readonly queueService: QueueService) {}
 
-  async on<T>(topicName: string, handlerFunction: SubscriptionHandlerFunction<T>): Promise<void> {
-    const queue = await this.queueService.getOrCreateQueue(topicName);
+  async on<T>(subscription: BaseSubscription<T>): Promise<void> {
+    const queue = await this.queueService.getOrCreateQueue(subscription.topicName);
     const consumer = Consumer.create({
       queueUrl: queue.url,
       sqs: this.queueService.Instance,
@@ -26,11 +25,11 @@ export class SubscriptionService {
           body: JSON.parse(message.Body) as T,
         };
 
-        handlerFunction(subscriptionMessage);
+        subscription.onSubscribe(subscriptionMessage);
       },
     });
 
-    console.info(`Subscription started for ${topicName}.`);
+    console.info(`Subscription started for ${subscription.topicName}.`);
 
     consumer.on('error', (error) => console.error(error));
     consumer.on('processing_error', (processingError) => console.error(processingError));
