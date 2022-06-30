@@ -6,15 +6,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { AuthModule } from './auth/auth.module';
+import { QueueModule } from '@napfernandes/queue';
+import { PubsubModule } from '@napfernandes/pubsub';
 import { ConversationModule } from './conversation.module';
-import { NotificationModule } from './notification/notification.module';
 import { SubscriptionModule } from './subscriptions/subscription.module';
 import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [
     AuthModule,
-    NotificationModule,
+    QueueModule,
+    PubsubModule,
     ConversationModule,
     SubscriptionModule,
     ConfigModule.forRoot(),

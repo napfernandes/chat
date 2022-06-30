@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { BaseSubscription } from './base-subscription';
+import { SubscriptionMessage } from '@napfernandes/pubsub';
 import { ConversationOutput } from '../models/conversation.output';
 import { ConversationActionType } from '../conversation-action-type.enum';
-import { SubscriptionMessage } from '../notification/subscription.service';
+import { BaseSubscription } from '@napfernandes/pubsub';
 
 @Injectable()
 export class ConversationStartedSubscription extends BaseSubscription<ConversationOutput> {

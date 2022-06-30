@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { QueueService } from './notification/queue.service';
 import { ConversationOutput } from './models/conversation.output';
 import { ConversationRepository } from './conversation.repository';
 import { MessageActionInput } from './models/message-action.input';
@@ -16,6 +15,7 @@ import InsertConversationValidator from './validators/insert-conversation.valida
 import SendActionToMessageValidator from './validators/send-action-to-message.validator';
 import { Conversation, ConversationMessage, MessageAction } from './conversation.schema';
 import SendMessageToConversationValidator from './validators/send-message-to-conversation.validator';
+import { QueueService } from '@napfernandes/queue';
 
 @Injectable()
 export class ConversationService {

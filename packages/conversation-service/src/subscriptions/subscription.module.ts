@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { NotificationModule } from '../notification/notification.module';
 
-import { SubscriptionService } from '../notification/subscription.service';
+import { QueueModule } from '@napfernandes/queue';
+import { PubsubModule, SubscriptionService } from '@napfernandes/pubsub';
 import { ConversationStartedSubscription } from './conversation-started.subscription';
 
 @Module({
-  imports: [NotificationModule],
+  imports: [PubsubModule, QueueModule],
   providers: [SubscriptionService, ConversationStartedSubscription],
 })
 export class SubscriptionModule {
