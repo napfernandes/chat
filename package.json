@@ -1,6 +1,7 @@
 {
-  "name": "chat-solution",
+  "name": "@napfernandes/chat-solution",
   "version": "0.0.1",
+  "private": true,
   "description": "Microservice solution offering a chat application, developed with NodeJS, MongoDB, Redis, React.",
   "author": "Nicolas Fernandes <nicolaspfernandes@outlook.com>",
   "license": "MIT",
@@ -13,10 +14,17 @@
     "build:all": "lerna run build --stream"
   },
   "dependencies": {
-    "aws-sdk": "^2.1163.0"
+    "aws-sdk": "^2.1163.0",
+    "mongoose": "^6.4.1"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^18.0.0",
     "lerna": "^5.1.4"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   }
 }

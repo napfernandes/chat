@@ -1,5 +1,5 @@
 {
-  "name": "user-service",
+  "name": "@napfernandes/user-service",
   "version": "0.0.1",
   "description": "User service for managing user data.",
   "keywords": [
@@ -93,6 +93,9 @@
       "./test/integration-test/helpers/bootstrap-integration-tests.ts"
     ],
     "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@napfernandes/notification(|/.*)$": "<rootDir>/packages/notification/src/$1"
+    }
   }
 }

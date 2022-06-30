@@ -1,5 +1,5 @@
 {
-  "name": "chat-frontend",
+  "name": "@napfernandes/chat-frontend",
   "version": "0.0.1",
   "private": true,
   "description": "Frontend solution for chat application.",

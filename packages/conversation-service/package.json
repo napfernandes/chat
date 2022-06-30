@@ -1,5 +1,5 @@
 {
-  "name": "conversation-service",
+  "name": "@napfernandes/conversation-service",
   "version": "0.0.1",
   "description": "Conversation service for managing and providing chat/conversation data.",
   "keywords": [
