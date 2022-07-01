@@ -19,5 +19,6 @@ import { ValidatorService } from './common/services/validator.service';
     CryptoService,
     ValidatorService,
   ],
+  exports: [UserService],
 })
 export class UserModule {}

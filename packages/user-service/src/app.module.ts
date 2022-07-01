@@ -7,11 +7,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MongooseModule, InjectConnection } from '@nestjs/mongoose';
 
 import { UserModule } from './user.module';
+import { SubscriptionModule } from './subscriptions/subscription.module';
 import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 
 @Module({
   imports: [
     UserModule,
+    SubscriptionModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URL, {
       logger: CustomMongoDBLogger,
@@ -26,6 +28,6 @@ import { CustomMongoDBLogger } from './common/custom/custom-mongodb-logger';
 })
 export class AppModule {
   constructor(@InjectConnection() private readonly connection: Connection) {
-    connection.set('debug', true);
+    this.connection.set('debug', true);
   }
 }

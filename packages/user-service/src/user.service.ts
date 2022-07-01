@@ -10,15 +10,18 @@ import { LoginOutput } from './models/login.output';
 import { CreateUserInput } from './models/create-user.input';
 import { DeleteUserInput } from './models/delete-user.input';
 import { DeleteUserOutput } from './models/delete-user.output';
-import { UserNotFoundError } from './errors/user-not-found.error';
 import { TokenService } from './common/services/token.service';
 import { CryptoService } from './common/services/crypto.service';
+import { UserNotFoundError } from './errors/user-not-found.error';
 import CreateUserValidator from './validators/create-user.validator';
 import { ValidatorService } from './common/services/validator.service';
 import { LoginCredentialsInput } from './models/login-credentials.input';
+import { UserConversationOutput } from './models/user-conversation.output';
 import { UserAlreadyExistsError } from './errors/user-already-exists.error';
 import { InvalidCredentialsError } from './errors/invalid-credentials.error';
+import { ConversationToUserInput } from './models/conversation-to-user.input';
 import loginByCredentialsValidator from './validators/login-by-credentials.validator';
+import { InsertConversationToUserError } from './errors/insert-conversation-to-user.error';
 
 @Injectable()
 export class UserService {
@@ -96,5 +99,16 @@ export class UserService {
     await userFound.remove();
 
     return { deleted: true };
+  }
+
+  async insertConversationToUser(input: ConversationToUserInput): Promise<UserConversationOutput> {
+    const { userId, ...conversation } = input;
+    const updateResult = await this.userRepository.insertConversationToUser(userId, conversation);
+
+    if (!updateResult.acknowledged || updateResult.modifiedCount === 0) {
+      throw new InsertConversationToUserError(conversation.conversationId, userId);
+    }
+
+    return UserConversationOutput.from(conversation);
   }
 }
