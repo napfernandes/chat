@@ -43,9 +43,3 @@ npm run start:dev conversation-service
 npm run build // builds the service into /dist folder.
 npm run start:dev  // starts the server with --watch parameter (hot reload).
 ```
-
-You can also run test cases by using the following commands:
-
-```Javascript
-npm run test:integration:all
-```
